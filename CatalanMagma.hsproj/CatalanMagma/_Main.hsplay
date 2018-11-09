@@ -1,0 +1,5 @@
+-- Haskell Playground 1.0
+let x = (Gen :*: Gen) :*: (Gen :*: Gen)
+
+fromFree x :: PermAvoiding321
+
