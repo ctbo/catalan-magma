@@ -1,5 +1,12 @@
 -- Haskell Playground 1.0
 let x = (Gen :*: Gen) :*: (Gen :*: Gen)
+let y = Gen :*: Gen :*: Gen :*: Gen
+y
 
 fromFree x :: PermAvoiding321
+fromFree y :: PermAvoiding321
 
+fromFree x :: DyckWord
+fromFree y :: DyckWord
+
+enumerate 4 :: [DyckWord]

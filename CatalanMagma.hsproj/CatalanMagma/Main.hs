@@ -13,18 +13,29 @@ class CatalanMagma a where
   fromFree Gen = generator
   fromFree (a :*: b) = fromFree a .*. fromFree b
   
+  enumerate :: Int -> [a]
+  enumerate n
+    | n <= 1 = [generator]
+    | otherwise = [ a .*. b
+                  | i <- [1 .. n-1]
+                  , a <- enumerate (n-i)
+                  , b <- enumerate i
+                  ]
+                  
   -- norm :: a -> Int
 
+-- --------------------------------------------------------------------------
 instance CatalanMagma FreeMagma where
   generator = Gen
   (.*.) = (:*:)
   fromFree = id
 
 -- --------------------------------------------------------------------------
-newtype DyckMagma = DyckMagma String deriving (Eq, Show)
-instance CatalanMagma DyckMagma where
-  generator = DyckMagma ""
-  DyckMagma a .*. DyckMagma b  = DyckMagma $ a ++ "(" ++ b ++ ")"
+newtype DyckWord = DyckWord String deriving (Eq, Show)
+
+instance CatalanMagma DyckWord where
+  generator = DyckWord ""
+  DyckWord a .*. DyckWord b  = DyckWord $ a ++ "(" ++ b ++ ")"
   
 
 -- --------------------------------------------------------------------------
