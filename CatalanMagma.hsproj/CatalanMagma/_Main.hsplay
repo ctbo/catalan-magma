@@ -16,3 +16,7 @@ toFree (fromFree x :: DyckWord)
 let xd = fromFree x :: DyckWord
 xd
 isomorphism xd :: FreeMagma
+
+let t = enumerate 5 :: [DyckWord]
+map (\m -> m == isomorphism m) t
+

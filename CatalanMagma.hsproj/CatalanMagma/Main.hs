@@ -51,6 +51,7 @@ class (Eq a) => CatalanMagma a where
   isomorphism :: (CatalanMagma b) => a -> b
   isomorphism = fromFree . toFree
 
+
 -- --------------------------------------------------------------------------
 -- | a free magma with one generator 'Gen' and product ':*:'
 instance CatalanMagma FreeMagma where
@@ -71,6 +72,17 @@ instance CatalanMagma DyckWord where
   generator = DyckWord ""
   DyckWord a .*. DyckWord b  = DyckWord $ a ++ "{" ++ b ++ "}"
   norm (DyckWord s) = length s `div` 2 + 1
+
+  -- | parse DyckWord right to left.
+  -- no error handling: crashes for invalid strings.
+  toFree (DyckWord s) = m
+    where (m, "") = parse $ reverse s
+          parse :: String -> (FreeMagma, String)
+          parse "" = (Gen, "")
+          parse s@('{':_) = (Gen, s)
+          parse ('}':xs) = (l :*: r, xs'')
+            where (r, '{':xs') = parse xs
+                  (l, xs'') = parse xs'
 
 
 -- --------------------------------------------------------------------------
