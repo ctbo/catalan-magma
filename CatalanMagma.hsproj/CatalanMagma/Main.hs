@@ -45,7 +45,7 @@ instance CatalanMagma PermAvoiding321 where
   generator = PermAvoiding321 []
   PermAvoiding321 xs .*. PermAvoiding321 ys = PermAvoiding321 $ xs ++ (i : ys')
     where p1 = length xs
-          c1 = length $ takeWhile (\(a, b) -> a > b) $ zip ys [1..]
+          c1 = length $ takeWhile (\(a, b) -> a <= b) $ zip ys [1..]
           i = p1 + c1 + 1
           ys' = map shift ys
           shift y = p1 + y + if y>c1 then 1 else 0

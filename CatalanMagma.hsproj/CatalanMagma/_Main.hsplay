@@ -9,4 +9,5 @@ fromFree y :: PermAvoiding321
 fromFree x :: DyckWord
 fromFree y :: DyckWord
 
-enumerate 4 :: [DyckWord]
+enumerate 4 :: [PermAvoiding321]
+
