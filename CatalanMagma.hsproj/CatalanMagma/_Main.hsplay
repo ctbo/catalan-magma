@@ -11,3 +11,4 @@ fromFree y :: DyckWord
 
 map norm (enumerate 4 :: [FreeMagma])
 
+toFree (fromFree x :: DyckWord)
