@@ -11,8 +11,13 @@ This code implements some of the ideas of the following paper [1]:
 }
 -}
 
+
+-- --------------------------------------------------------------------------
+-- | a free magma with one generator 'Gen' and product ':*:'
 data FreeMagma = Gen | FreeMagma :*: FreeMagma deriving (Show, Eq)
 
+
+-- --------------------------------------------------------------------------
 -- | a unique factorisation normed magma with one irreducible element
 class (Eq a) => CatalanMagma a where
 
@@ -52,8 +57,6 @@ class (Eq a) => CatalanMagma a where
   isomorphism = fromFree . toFree
 
 
--- --------------------------------------------------------------------------
--- | a free magma with one generator 'Gen' and product ':*:'
 instance CatalanMagma FreeMagma where
   generator = Gen
   (.*.) = (:*:)
