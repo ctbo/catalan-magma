@@ -22,7 +22,7 @@ class CatalanMagma a where
                   , b <- enumerate i
                   ]
                   
-  -- norm :: a -> Int
+  norm :: a -> Int
 
 -- --------------------------------------------------------------------------
 instance CatalanMagma FreeMagma where
@@ -30,12 +30,17 @@ instance CatalanMagma FreeMagma where
   (.*.) = (:*:)
   fromFree = id
 
+  norm Gen = 1
+  norm (a :*: b) = norm a + norm b
+    
+
 -- --------------------------------------------------------------------------
 newtype DyckWord = DyckWord String deriving (Eq, Show)
 
 instance CatalanMagma DyckWord where
   generator = DyckWord ""
   DyckWord a .*. DyckWord b  = DyckWord $ a ++ "(" ++ b ++ ")"
+  norm (DyckWord s) = length s `div` 2 + 1
   
 
 -- --------------------------------------------------------------------------
@@ -49,4 +54,5 @@ instance CatalanMagma PermAvoiding321 where
           i = p1 + c1 + 1
           ys' = map shift ys
           shift y = p1 + y + if y>c1 then 1 else 0
-          
+  norm (PermAvoiding321 xs) = length xs + 1
+       
