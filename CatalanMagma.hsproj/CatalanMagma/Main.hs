@@ -60,17 +60,17 @@ instance CatalanMagma FreeMagma where
     
 
 -- --------------------------------------------------------------------------
--- | Dyck words. Matching pairs of brackets. $\F_1$ in [1].
+-- | Dyck words. Matching pairs of brackets {}. $\F_1$ in [1].
 newtype DyckWord = DyckWord String deriving (Eq, Show)
 
 instance CatalanMagma DyckWord where
   generator = DyckWord ""
   DyckWord a .*. DyckWord b  = DyckWord $ a ++ "{" ++ b ++ "}"
   norm (DyckWord s) = length s `div` 2 + 1
-  
+
 
 -- --------------------------------------------------------------------------
--- | 321-avoiding permutations. $F_9$ in [1].
+-- | 321-avoiding permutations. $\F_9$ in [1].
 newtype PermAvoiding321 = PermAvoiding321 [Int] deriving (Eq, Show)
 
 instance CatalanMagma PermAvoiding321 where
@@ -83,3 +83,19 @@ instance CatalanMagma PermAvoiding321 where
           shift y = p1 + y + if y>c1 then 1 else 0
   norm (PermAvoiding321 xs) = length xs + 1
        
+
+-- --------------------------------------------------------------------------
+-- | Two row standard tableau. $\F_{12}$ in [1].
+data TwoRowTableau = TwoRowTableau [Int] [Int] deriving (Eq, Show)
+
+instance CatalanMagma TwoRowTableau where
+  generator = TwoRowTableau [] []
+  TwoRowTableau top1 bottom1 .*. TwoRowTableau top2 bottom2 = 
+      TwoRowTableau (top1 ++ ((k+1) : top2')) (bottom1 ++ bottom2' ++ [k+l+2])
+    where k = length top1 * 2
+          l = length top2 * 2
+          top2' = map ((k+1)+) top2
+          bottom2' = map ((k+1)+) bottom2
+  norm (TwoRowTableau top _) = length top + 1
+         
+

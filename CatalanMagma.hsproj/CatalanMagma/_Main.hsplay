@@ -9,6 +9,6 @@ fromFree y :: PermAvoiding321
 fromFree x :: DyckWord
 fromFree y :: DyckWord
 
-map norm (enumerate 4 :: [FreeMagma])
+enumerate 4 :: [TwoRowTableau]
 
 toFree (fromFree x :: DyckWord)
