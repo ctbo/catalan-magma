@@ -12,3 +12,7 @@ fromFree y :: DyckWord
 enumerate 4 :: [TwoRowTableau]
 
 toFree (fromFree x :: DyckWord)
+
+let xd = fromFree x :: DyckWord
+xd
+isomorphism xd :: FreeMagma

@@ -47,6 +47,9 @@ class (Eq a) => CatalanMagma a where
   toFree x = head $ [y | (x', y) <- zip (enumerate n) (enumerate n)
                        , x' == x ]
     where n = norm x
+    
+  isomorphism :: (CatalanMagma b) => a -> b
+  isomorphism = fromFree . toFree
 
 -- --------------------------------------------------------------------------
 -- | a free magma with one generator 'Gen' and product ':*:'
@@ -54,6 +57,7 @@ instance CatalanMagma FreeMagma where
   generator = Gen
   (.*.) = (:*:)
   fromFree = id
+  toFree = id
 
   norm Gen = 1
   norm (a :*: b) = norm a + norm b
