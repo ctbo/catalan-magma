@@ -119,3 +119,18 @@ instance CatalanMagma TwoRowTableau where
   norm (TwoRowTableau top _) = length top + 1
          
 
+-- --------------------------------------------------------------------------
+-- | Frieze patterns. $\F_{14}$ in [1].
+newtype FriezePattern = FriezePattern [Int] deriving (Eq, Show)
+
+instance CatalanMagma FriezePattern where
+  generator = FriezePattern [0, 0]
+  FriezePattern (x:xs) .*. FriezePattern (y:ys) =
+      FriezePattern $ [x+1] ++ xs' ++ [xl+y+1] ++ ys' ++ [yl+1]
+    where (xs', xl) = initLast xs
+          (ys', yl) = initLast ys
+          initLast [t] = ([], t)
+          initLast (t:ts) = let (i, l) = initLast ts in (t:i, l)
+  norm (FriezePattern a) = length a - 1
+
+
