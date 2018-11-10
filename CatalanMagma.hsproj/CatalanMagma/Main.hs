@@ -52,9 +52,10 @@ class (Eq a) => CatalanMagma a where
   toFree x = head $ [y | (x', y) <- zip (enumerate n) (enumerate n)
                        , x' == x ]
     where n = norm x
-    
-  isomorphism :: (CatalanMagma b) => a -> b
-  isomorphism = fromFree . toFree
+  
+  -- | isomorphism to any other CatalanMagma  
+  toOther :: (CatalanMagma b) => a -> b
+  toOther = fromFree . toFree
 
 
 instance CatalanMagma FreeMagma where
