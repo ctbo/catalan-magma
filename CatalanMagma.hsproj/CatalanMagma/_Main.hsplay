@@ -9,7 +9,9 @@ fromFree y :: PermAvoiding321
 fromFree x :: DyckWord
 fromFree y :: DyckWord
 
-enumerate 4 :: [PreorderTree]
+let p = generate 5 :: [DyckWord]
+length p
+p
 
 toFree (fromFree x :: DyckWord)
 
@@ -17,7 +19,8 @@ let xd = fromFree x :: DyckWord
 xd
 toOther xd :: PermAvoiding321
 
-let t = enumerate 5 :: [PreorderTree]
+let t = enumerate 9 :: [PreorderTree]
 t
+length t
 
-all (\m -> m == toOther m) $ t
+all (\m -> m == toOther m) $ p

@@ -42,7 +42,24 @@ class (Eq a) => CatalanMagma a where
                   , a <- enumerate (n-i)
                   , b <- enumerate i
                   ]
-                  
+
+  -- | generate all elements with given norm. Returns the same set as
+  -- enumerate but in a different order: PreorderTree strings are
+  -- in lexicographic order.               
+  generate :: Int -> [a]
+  generate n
+    | n <= 1 = [generator]
+    | otherwise = [ a .*. b
+                  | (a, n') <- upto (n-1)
+                  , b <- generate n'
+                  ]
+    where upto 1 = [(generator, 1)]
+          upto m = [ (a .*. b, m'')
+                   | (a, m') <- upto (m-1)
+                   , (b, m'') <- upto m'
+                   ] ++ [(generator, m)]
+  
+  -- | norm. Assumes norm generator == 1 and norm (a .*. b) == norm a + norm b 
   norm :: a -> Int
   
   -- | decomposition. The default implementation is inefficient since it
@@ -138,7 +155,7 @@ instance CatalanMagma FriezePattern where
 -- | Preorder tree encodings.
 -- a complete binary tree is represented by its pre-order traversal encoded
 -- as a string where 0 represents an internal node and 1 represents a leaf.
-newtype PreorderTree = PreorderTree String deriving (Eq, Show)
+newtype PreorderTree = PreorderTree String deriving (Eq, Show, Ord)
 
 instance CatalanMagma PreorderTree where
   generator = PreorderTree "1"
