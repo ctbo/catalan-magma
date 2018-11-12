@@ -134,3 +134,23 @@ instance CatalanMagma FriezePattern where
   norm (FriezePattern a) = length a - 1
 
 
+-- --------------------------------------------------------------------------
+-- | Preorder tree encodings.
+-- a complete binary tree is represented by its pre-order traversal encoded
+-- as a string where 0 represents an internal node and 1 represents a leaf.
+newtype PreorderTree = PreorderTree String deriving (Eq, Show)
+
+instance CatalanMagma PreorderTree where
+  generator = PreorderTree "1"
+  PreorderTree a .*. PreorderTree b = PreorderTree $ "0" ++ a ++ b
+  norm (PreorderTree s) = (length s + 1) `div` 2
+  
+  toFree (PreorderTree s) = m
+    where (m, "") = parse s
+          parse :: String -> (FreeMagma, String)
+          parse ('1':xs) = (Gen, xs)
+          parse ('0':xs) = (l :*: r, xs'')
+            where (l, xs') = parse xs
+                  (r, xs'') = parse xs'
+
+

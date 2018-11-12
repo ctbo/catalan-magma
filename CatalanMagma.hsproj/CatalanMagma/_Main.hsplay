@@ -9,7 +9,7 @@ fromFree y :: PermAvoiding321
 fromFree x :: DyckWord
 fromFree y :: DyckWord
 
-enumerate 4 :: [FriezePattern]
+enumerate 4 :: [PreorderTree]
 
 toFree (fromFree x :: DyckWord)
 
@@ -17,5 +17,7 @@ let xd = fromFree x :: DyckWord
 xd
 toOther xd :: PermAvoiding321
 
-let t = enumerate 5 :: [DyckWord]
+let t = enumerate 5 :: [PreorderTree]
+t
 
+all (\m -> m == toOther m) $ t
