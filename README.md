@@ -12,6 +12,8 @@ This Haskell code implements some of the ideas of the following paper [[1]](http
 }
 ```
 
+This is unstable experimental code, possibly redundant and inefficient.
+
 The following assumes that the terminology of the paper [1] is known.
 
 ## Sample session
@@ -73,4 +75,41 @@ DyckWord "{{}}{}"
 [TwoRowTableau [1,3,5] [2,4,6],TwoRowTableau [1,2,5] [3,4,6],TwoRowTableau [1,3,4] [2,5,6],TwoRowTableau [1,2,4] [3,5,6],TwoRowTableau [1,2,3] [4,5,6]]```
 *Main> enumerate 4 :: [FriezePattern]
 [FriezePattern [3,1,2,2,1],FriezePattern [2,2,1,3,1],FriezePattern [2,1,3,1,2],FriezePattern [1,3,1,2,2],FriezePattern [1,2,2,1,3]]
+```
+`generate` is an alternative to `enumerate` that returns the same elements, but in a different order. Preorder tree encodings as implemented in `PreorderTree` are returned in lexicographic order by `generate`. The following illustrates the difference:
+
+```
+*Main> mapM_ print (enumerate 5 :: [PreorderTree])
+PreorderTree "000011111"
+PreorderTree "000101111"
+PreorderTree "000110111"
+PreorderTree "001001111"
+PreorderTree "001010111"
+PreorderTree "000111011"
+PreorderTree "001011011"
+PreorderTree "001100111"
+PreorderTree "001101011"
+PreorderTree "010001111"
+PreorderTree "010010111"
+PreorderTree "010011011"
+PreorderTree "010100111"
+PreorderTree "010101011"
+```
+
+```
+*Main> mapM_ print (generate 5 :: [PreorderTree])
+PreorderTree "000011111"
+PreorderTree "000101111"
+PreorderTree "000110111"
+PreorderTree "000111011"
+PreorderTree "001001111"
+PreorderTree "001010111"
+PreorderTree "001011011"
+PreorderTree "001100111"
+PreorderTree "001101011"
+PreorderTree "010001111"
+PreorderTree "010010111"
+PreorderTree "010011011"
+PreorderTree "010100111"
+PreorderTree "010101011"
 ```
