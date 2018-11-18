@@ -73,6 +73,18 @@ class (Eq a) => CatalanMagma a where
   -- | isomorphism to any other CatalanMagma  
   toOther :: (CatalanMagma b) => a -> b
   toOther = fromFree . toFree
+  
+  -- | opposite map
+  opp :: a -> a
+  opp = fromFree . freeOpp . toFree
+    where freeOpp Gen = Gen
+          freeOpp (a :*: b) = b :*: a
+  
+  -- | reverse map
+  rev :: a -> a
+  rev = fromFree . freeRev . toFree
+    where freeRev Gen = Gen
+          freeRev (a :*: b) = freeRev b :*: freeRev a        
 
 
 instance CatalanMagma FreeMagma where

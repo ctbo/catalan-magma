@@ -24,3 +24,8 @@ t
 length t
 
 all (\m -> m == toOther m) $ p
+
+let dw = DyckWord "{}{{}{}}"
+
+opp dw
+rev dw

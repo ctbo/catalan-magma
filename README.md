@@ -113,3 +113,12 @@ PreorderTree "010011011"
 PreorderTree "010100111"
 PreorderTree "010101011"
 ```
+
+Opposite and reverse maps as defined in section 4 of [1]:
+
+```
+*Main> opp (DyckWord "{}{{}{}}")
+DyckWord "{}{}{{}}"
+*Main> rev (DyckWord "{}{{}{}}")
+DyckWord "{{}}{{}}"
+```
